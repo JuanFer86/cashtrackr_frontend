@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { updatePassword } from "@/actions/update-password-action";
 
 export const RegisterSchema = z
   .object({
@@ -113,6 +114,27 @@ export const DraftExpenseSchema = z.object({
 export const BudgetsAPIResponseSchema = z.array(
   BudgetAPIResponseSchema.omit({ expenses: true })
 );
+
+export const UpdateUserSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email" }),
+});
+
+export const UpdatePasswordSchema = z
+  .object({
+    current_password: z.string().min(1, { message: "Password is required" }),
+    password: z
+      .string()
+      .min(8, { message: "Password should at least 8 characters" }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Passwords are not equal",
+    path: ["password_confirmation"],
+  });
 
 export type UserType = z.infer<typeof UserSchema>;
 export type BudgetType = z.infer<typeof BudgetAPIResponseSchema>;
