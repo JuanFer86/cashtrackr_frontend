@@ -1,7 +1,6 @@
 "use server";
 
 import getToken from "@/src/auth/token";
-import { checkPassword } from "../../backend/src/utils/auth";
 import {
   BudgetType,
   ErrorResponseSchema,

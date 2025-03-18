@@ -1,12 +1,16 @@
 "use server";
 
-import { ErrorResponseSchema, ExpenseType, SuccessSchema } from "@/src/schemas";
-import Budget from "../../backend/src/models/Budget";
+import {
+  BudgetType,
+  ErrorResponseSchema,
+  ExpenseType,
+  SuccessSchema,
+} from "@/src/schemas";
 import getToken from "@/src/auth/token";
 import { revalidatePath } from "next/cache";
 
 type BudgetAndExpenseIdType = {
-  budgetId: Budget["id"];
+  budgetId: BudgetType["id"];
   expenseId: ExpenseType["id"];
 };
 
